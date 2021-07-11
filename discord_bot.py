@@ -564,7 +564,7 @@ async def roll(ctx, choice):
     else:
         await ctx.send("You lost :(")
 
-# on_message triggers on every message
+# on_message triggers on every message.
 @bot.event
 async def on_message(message):
     author = message.author.mention
