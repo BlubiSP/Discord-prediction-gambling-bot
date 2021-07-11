@@ -1,0 +1,15 @@
+{
+    "coins": {},
+    "play_times": {},
+    "prediction": {
+        "sum_of_bets_per_option": {},
+        "both": {},
+        "total": 0,
+        "status": {
+            "active_prediction": false,
+            "closed_prediction": false
+        },
+        "options": [],
+        "prediction_starter": ""
+    }
+}
