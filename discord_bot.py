@@ -16,7 +16,7 @@ bot = commands.Bot(command_prefix='!')                                  ### Deci
 bad_words = ("example1", "example2")                                    ### Bad words go in here. If users type these words in any message the message will be deleted and they lose 100 coins.
 slurs     = ("example1", "example2")                                    ### Slurs go in here. If users type these words in any message the message will be deleted and they lose all their coins.
 meme_channelname = "channel_name"                                       ### If you have a meme channel type it here. Users who post links or files in this channel have a chance to get some coins.
-
+infinite_games = False                                                  ### If set to true, there is no cooldown on games, which means you can farm an infinite amount of coins.
 
 # Initializing variables
 active_minigame = False                                                                                     # Tells the bot if there is an active minigame.
@@ -215,7 +215,7 @@ async def game1(ctx):
     if not signed_up(author):                                                                               # Checks if the author of the command is signed up and refreshes coins from file.
         await ctx.send("You are not signed up! Type !signup to start playing!")
         return
-    #if Already_played(author):                                                                             # Checks if user has played a game recently.
+    if Already_played(author) and not infinite_games:                                                       # Checks if user has played a game recently.
         await ctx.send(f"You already played today.")
         return
     else:
@@ -266,7 +266,7 @@ async def game2(ctx):
     if not signed_up(author):                                                                               # Checks if the author of the command is signed up and refreshes coins from file.
         await ctx.send("You are not signed up! Type !signup to start playing!")
         return
-    if Already_played(author):                                                                              # Checks if user has played a game recently.
+    if Already_played(author) and not infinite_games:                                                       # Checks if user has played a game recently.
         await ctx.send(f"You already played today.")
         return
     else:
@@ -317,7 +317,7 @@ async def game3(ctx):
     if not signed_up(author):                                                                               # Checks if the author of the command is signed up and refreshes coins from file.
         await ctx.send("You are not signed up! Type !signup to start playing!")
         return
-    if Already_played(author):                                                                              # Checks if user has played a game recently.
+    if Already_played(author) and not infinite_games:                                                       # Checks if user has played a game recently.
         await ctx.send(f"You already played today.")
         return
     update_last_played(author)
