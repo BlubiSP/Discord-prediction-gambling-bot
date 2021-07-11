@@ -69,6 +69,7 @@ def check_times():
 def update_last_played(user):
     check_times()
     timesd[user] = str(datetime.now())
+    data["play_times"] = timesd
     with open(jsonfile, "w") as file:                                                                       # Saves last played to data.json
         json.dump(data, file)
 
