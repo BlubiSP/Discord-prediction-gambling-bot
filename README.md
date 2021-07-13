@@ -7,4 +7,3 @@ This is my first ever project so there are probably a ton of mistakes, I tried c
 There are a few lines you need to edit, I marked them with "###", they are all at the beginning of the file.
 
 Once it's running use !help to see all available commands.
-If you find any bugs or have any feature requests let me know!
