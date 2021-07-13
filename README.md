@@ -4,6 +4,6 @@ This bot also has a prediction command simular to Twitch predictions except you 
 This is my first ever project so there are probably a ton of mistakes, I tried commenting my code as much as possible to make it easier to read.
 
 ## Do this before running the bot
-There are a few lines you need to edit, I marked them with "###", they are all at the beginning of the file.
+There are a few lines in **discord_bot.py** you need to edit, I marked them with "###", they are all at the beginning of the file.
 
 Once it's running use !help to see all available commands.
