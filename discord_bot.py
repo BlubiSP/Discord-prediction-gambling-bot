@@ -556,6 +556,11 @@ async def bet(ctx, choice, amount):
         await ctx.send("You don't have enough coins.")
         return
     choice = options[choicenr- 1]
+    # If user already has an active bet.
+    if author in both:
+        # Refund coins before making new bet.
+        coinchange(author, both[author][0])
+    # Adds dictionary entry with user id as key and bet amount and choice(in a list) as value.
     both[author] = [bet,choice]
     # Adds/Removes Coins to/from author.
     coinchange(author, -bet)
