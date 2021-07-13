@@ -558,7 +558,7 @@ async def bet(ctx, choice, amount):
     choice = options[choicenr- 1]
     # If user already has an active bet.
     if author in both:
-        # Refund coins before making new bet.
+        # Refund coins.
         coinchange(author, both[author][0])
     # Adds dictionary entry with user id as key and bet amount and choice(in a list) as value.
     both[author] = [bet,choice]
