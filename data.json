@@ -10,6 +10,7 @@
             "closed_prediction": false
         },
         "options": [],
-        "prediction_starter": ""
+        "prediction_starter": "",
+        "prediction_name": ""
     }
 }

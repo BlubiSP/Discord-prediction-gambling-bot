@@ -135,7 +135,7 @@ def Already_played(author):
 
 # loads any open prediction from data.json
 def load_prediction():
-    global data, sum_of_bets_per_option, both, total, active_prediction, closed_prediction, options, prediction_starter
+    global data, sum_of_bets_per_option, both, total, active_prediction, closed_prediction, options, prediction_starter, prediction_name
     with open(jsonfile) as file:
             data = json.load(file)
             sum_of_bets_per_option = data["prediction"]["sum_of_bets_per_option"]
@@ -145,6 +145,7 @@ def load_prediction():
             closed_prediction = data["prediction"]["status"]["closed_prediction"] 
             options = data["prediction"]["options"]
             prediction_starter = data["prediction"]["prediction_starter"]
+            prediction_name = data["prediction"]["prediction_name"]
 
 # saves a open prediction to data.json. 
 # This makes predictions persist even if the bot goes offline 
@@ -165,6 +166,8 @@ def save_prediction():
             data["prediction"]["options"] = options
         if prediction_starter:
             data["prediction"]["prediction_starter"] = prediction_starter
+        if prediction_name:
+            data["prediction"]["prediction_name"] = prediction_name
         json.dump(data, file)
 
 # resets prediction and all variables
@@ -588,6 +591,7 @@ async def close(ctx):
 
 @bot.command(brief="Shows current prediction and bets")
 async def active(ctx):
+    load_prediction()
     if active_prediction or closed_prediction:
         await ctx.send(f"Current Prediction : {prediction_name}\n")
         for n, i in enumerate(options):
