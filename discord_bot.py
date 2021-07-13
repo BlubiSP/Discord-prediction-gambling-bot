@@ -9,6 +9,7 @@ import random
 from datetime import datetime
 import discord
 from discord.ext import commands
+from time import sleep
 
 # Get your token here: https://discord.com/developers/applications
 ### Your bot token goes here. Don't forget the "" at the beginning and the end.
@@ -142,13 +143,13 @@ def load_prediction():
             both = data["prediction"]["both"]
             total = data["prediction"]["total"]
             active_prediction = data["prediction"]["status"]["active_prediction"]
-            closed_prediction = data["prediction"]["status"]["closed_prediction"] 
+            closed_prediction = data["prediction"]["status"]["closed_prediction"]
             options = data["prediction"]["options"]
             prediction_starter = data["prediction"]["prediction_starter"]
             prediction_name = data["prediction"]["prediction_name"]
 
-# saves a open prediction to data.json. 
-# This makes predictions persist even if the bot goes offline 
+# saves a open prediction to data.json.
+# This makes predictions persist even if the bot goes offline
 # if statements basically checks if there is prediction active
 def save_prediction():
     with open(jsonfile, "w") as file:
@@ -202,8 +203,8 @@ async def signup(ctx):
     global coinsd
     # Checks if the author of the command is signed up and refreshes coins from data.json.
     if signed_up(author):
-        await ctx.send("You already signed up, you have %s coins" %coinsd[author])  
-        return  
+        await ctx.send("You already signed up, you have %s coins" %coinsd[author])
+        return
     # Creates dictionary entry with userid as key and the amount of coins as value.
     coinsd[author] = 500
     with open(jsonfile, "w") as file:
@@ -223,7 +224,7 @@ async def coins(ctx):
         await ctx.send(f"You have {coinsd[author]} coin!")
         return
     await ctx.send(f"You have {coinsd[author]} coins!")
-          
+
 @bot.command(brief= "Give coins to someone. !givecoins <@user> <amount>")
 async def givecoins(ctx, receiver, amount):
     # Lazy way to catch wrong inputs and send "Wrong input"
@@ -372,7 +373,7 @@ async def game2(ctx):
             # If the next message is the same as the answer you win.
             if msg.content == a:
                 await ctx.send("Correct! You won 150 Coins!")
-                # Adds/Removes Coins to/from author.             
+                # Adds/Removes Coins to/from author.
                 coinchange(author, 150)
                 active_minigame = False
                 await ent.delete()
@@ -459,7 +460,7 @@ async def game3(ctx):
         await first_image.delete()
         second_image = await ctx.send(file=discord.File(current_directory +  "/Game3/images/" + q2))
         try:
-            # Listens for the next message of the author for 8 seconds.            
+            # Listens for the next message of the author for 8 seconds.
             msg = await bot.wait_for('message', timeout=8.0, check=check)
             # If the next message(lowercase) is the same as the answer(lowercase) you win.
             if msg.content.lower() == answer or msg.content.lower() == answer2:
@@ -490,7 +491,7 @@ async def stop(ctx):
         active_minigame = False
     else:
         await ctx.send('No game active_minigame, start one with !game')
-   
+
 
 @bot.command(brief='Starts a prediction,!prediction <name of prediction>')
 async def prediction(ctx, *name):
@@ -567,12 +568,12 @@ async def bet(ctx, choice, amount):
     await ctx.send(f"{author} bet {bet} coins on {choice}\n")
     # Sends the given options back in one list for better viewability.
     for n, i in enumerate(options):
-        coins_on_i = 0               
+        coins_on_i = 0
         # Itterates over a list wich has the amount of what a user bet(index 0) and the name of the option(index 1).
         for bet, choice in both.values():
             # If the name of what a user bet on matches the name of an option.
             if choice == i:
-                coins_on_i += int(bet)                   
+                coins_on_i += int(bet)
         sum_of_bets_per_option[i] = coins_on_i# I do it this way instead of writing directly to the dictionary to avoid KeyErrors when there is no value set to an option.
         await ctx.send(f"**{n+1} {i}**\nTotal: {sum_of_bets_per_option[i]}")
     save_prediction()
@@ -603,7 +604,7 @@ async def active(ctx):
             await ctx.send(f"**{n+1} {i}**\nTotal: {sum_of_bets_per_option[i]}")
         return
     await ctx.send("No active prediction.")
- 
+
 @bot.command(brief="Lets the person who started the Prediction decide the winner.")
 async def winner(ctx, winner):
     global active_prediction
@@ -735,6 +736,12 @@ async def on_message(message):
                 coinchange(author, 50)
     # Tells the bot to still listen to commands.
     await bot.process_commands(message)
+
+if BOT_TOKEN == "Your token":
+    print("You forgot to add your token. Make sure you read the README.md!")
+    print("Closing in 10 Seconds")
+    sleep(10)
+    exit()
 
 # Starts the bot
 bot.run(BOT_TOKEN)
