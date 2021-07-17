@@ -589,6 +589,9 @@ async def close(ctx):
     if prediction_starter != ctx.message.author.mention:
         await ctx.send("Only the person that started the Prediction can close it!")
         return
+    if closed_prediction:
+        await ctx.send("Prediction is already closed!")
+        return
     # Gets total by summing up all bets.
     total = sum([int(f) for f in sum_of_bets_per_option.values()])
     closed_prediction = True
